@@ -1,0 +1,31 @@
+name: Build and push Docker image upon release
+
+on: [push]
+
+jobs:
+  docker-image:
+    name: Build and conditionally push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v7
+
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          load: true
+          tags: "${{ steps.branch-name.outputs.current_branch }}"
+
+      - name: Push to Registry
+        uses: docker/build-push-action@v4
+        if: steps.branch-name.outputs.is_default == 'true'
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: latest
