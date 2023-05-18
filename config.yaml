@@ -1,0 +1,10 @@
+server:
+  url: "http://weather.shsh.io:8086"
+  bucket: "sensors"
+  org: "shshio"
+  measurement: "mqtt"
+mappings:
+  - topic: iot/ipnode/2CF7F1694460003D/update/event/measure-sensor
+    location: Tsnori
+  - topic: iot/ipnode/2CF7F1694460003E/update/event/measure-sensor
+    location: Napareuli
