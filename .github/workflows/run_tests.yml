@@ -5,15 +5,15 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
-        python-version: ['3.8', '3.10']
-    
+        python-version: ['3.10']
+
     steps:
     - name: Checking out code from the repository
       uses: actions/checkout@v2
-    
+
     - name: Setting up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
