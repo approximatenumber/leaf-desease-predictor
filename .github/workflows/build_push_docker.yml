@@ -1,4 +1,4 @@
-name: Build and push Docker image upon release
+name: Docker image 
 
 on: [push]
 
@@ -25,7 +25,9 @@ jobs:
         uses: docker/build-push-action@v4
         if: steps.branch-name.outputs.is_default == 'true'
         with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           context: .
           platforms: linux/amd64
-          push: true
-          tags: latest
+          tag_with_ref: true
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}
