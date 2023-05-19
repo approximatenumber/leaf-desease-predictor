@@ -73,7 +73,7 @@ class LeafDeseasePredictor():
         return yaml.safe_load(open(config_file).read())
 
     def get_record_from_db(self, field: str, topic: str, params: Dict = {}) -> RecordStruct:
-        tables = self._get_tables_by_query(self.config['server']['bucket'], field, params=params)
+        tables = self._get_tables_by_query(field, params=params)
         record = self._get_record_from_tables(tables, topic)
         if not record:
             raise Exception("Cannot get record from database")
